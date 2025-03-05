@@ -28,6 +28,9 @@ module.exports = {
     public: publicUrl,
     stats: 'errors-warnings',
   },
+  watchOptions: {
+    poll: 1000 // Check for changes every second
+  },
   module: {
     rules: [
       {
