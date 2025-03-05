@@ -28,29 +28,17 @@ function render(variables = {}) {
   // if includeCover==false then we reset the cover code without the <img> tag to make the cover transparent.
   let cover = `<div class="cover"><img src="${variables.background}" /></div>`;
 
-  let socialUrls = [
-    "https://linkedin.com/school/",
-    "https://instagram.com/",
-    "https://twitter.com/",
-    "https://github.com/"
-  ];
-  let socialNicknames = [];
-  let socialIcons = ["fa-linkedin", "fa-instagram", "fa-twitter", "fa-github"];
+  let socialNetworks = ["linkedin", "twitter", "instagram", "github"];
   let socialUrlHtml = "";
 
-  socialNicknames.push(
-    variables.linkedin,
-    variables.instagram,
-    variables.twitter,
-    variables.github
-  );
-  console.log(socialUrls);
-
   if (variables.includeCover == false) cover = "<div class='cover'></div>";
-  for (let i = 0; i < socialUrls.length; i++) {
-    if (socialNicknames[i] !== null) {
-      socialUrlHtml += `<li><a href="${socialUrls[i]}${socialNicknames[i]}"><i class="fab  ${socialIcons[i]}"></i></a></li>`;
+  for (let network of socialNetworks) {
+    if (!variables[network]) continue;
+    let baseUrl = `https://${network}.com`;
+    if (network == "linkedin") {
+      baseUrl += "/in";
     }
+    socialUrlHtml += `<li><a href="${baseUrl}/${variables[network]}"><i class="fab  fa-${network}"></i></a></li>`;
   }
   console.log(socialUrlHtml);
   // reset the website body with the new html output
